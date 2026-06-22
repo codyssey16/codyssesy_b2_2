@@ -1,0 +1,107 @@
+name: "📋 통합 작업 관리 템플릿"
+description: "일정, 스토리 포인트, 우선순위 등을 포함한 상세 작업을 등록합니다."
+title: "[작업] "
+labels: ["task"]
+# 담당자 자동 지정: 기본적으로 이슈를 생성하는 자기 자신(Author)이 담당자로 지정되도록 설정합니다.
+# (이슈 생성 후 오른쪽 사이드바에서 언제든 다른 사람으로 변경 가능합니다.)
+assignees:
+  - "{{ author }}"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🚀 새로운 작업을 등록합니다.
+        아래의 필드들을 빠짐없이 입력해 주세요. 본문에 작성된 내용은 추후 프로젝트 보드(Table View) 관리 시 활용됩니다.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "9. 작업 내용 (Description)"
+      placeholder: "진행할 구체적인 작업 내용이나 요구사항을 상세히 적어주세요."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: "7. 작업 유형 (Type)"
+      options:
+        - "task"
+        - "bug"
+        - "documentation"
+        - "refactoring"
+        - "enhancement"
+    validations:
+      required: true
+
+  - type: input
+    id: start-date
+    attributes:
+      label: "3. 시작일 (Start Date)"
+      placeholder: "YYYY-MM-DD (예: 2026-06-23)"
+    validations:
+      required: false
+
+  - type: input
+    id: target-date
+    attributes:
+      label: "4. 목표 완료일 (Target Date)"
+      placeholder: "YYYY-MM-DD (예: 2026-06-30)"
+    validations:
+      required: false
+
+  - type: input
+    id: story-point
+    attributes:
+      label: "5. 스토리 포인트 (Story Point)"
+      description: "작업량을 숫자로 산정하여 입력해 주세요."
+      placeholder: "예: 1, 2, 3, 5, 8"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: "8. 진행 상태 (Status)"
+      options:
+        - "작업대기"
+        - "작업중"
+        - "완료"
+        - "검수"
+        - "종료"
+        - "이슈발생"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "10. 우선순위 (Priority)"
+      options:
+        - "major"
+        - "minor"
+        - "trivial"
+        - "none"
+    validations:
+      required: true
+
+  - type: input
+    id: upper-issue
+    attributes:
+      label: "12. 상위 이슈 (Upper Issue)"
+      description: "연관된 상위 작업이나 에픽(Epic) 이슈 번호 또는 URL이 있다면 적어주세요."
+      placeholder: "예: #123 또는 이슈 링크"
+    validations:
+      required: false
+
+  - type: textarea
+    id: sub-issue
+    attributes:
+      label: "11. 하위 이슈 리스트 (Sub-Issue)"
+      description: "본 작업에 종속된 하위 태스크 목록을 체크리스트 형태로 작성해 보세요."
+      value: |
+        - [ ] 하위 작업 1
+        - [ ] 하위 작업 2
+    validations:
+      required: false
