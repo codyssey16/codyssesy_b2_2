@@ -55,7 +55,7 @@ body:
     id: story-point
     attributes:
       label: "5. 스토리 포인트 (Story Point)"
-      description: "작업량을 숫자로 산정하여 입력해 주세요."
+      description: "작업량을 숫자로 입력해주세요. 1md -> 하루 작업량"
       placeholder: "예: 1, 2, 3, 5, 8"
     validations:
       required: false
