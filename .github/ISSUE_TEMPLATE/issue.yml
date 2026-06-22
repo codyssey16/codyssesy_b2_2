@@ -1,26 +1,26 @@
-name: "📋 고효율 작업 관리 시스템"
-description: "가로 레이아웃을 최적화하여 메타 정보와 일정을 집약적으로 입력합니다."
+name: "📋 통합 작업 관리 시스템"
+description: "일정 및 메타 정보를 직관적인 테이블 구조로 입력합니다."
 title: "[작업] "
 labels: ["task"]
 assignees:
   - "{{ author }}"
 
 body:
+  # ==========================================
+  # [구획 1] 안내 및 대시보드 (From-To 일정 및 기본 정보)
+  # ==========================================
   - type: markdown
     attributes:
       value: |
-        ## 🚀 작업 등록 및 메타데이터 설정
-        > 우측 사이드바가 차지하는 공간을 고려해, 본문 영역의 가로축을 넓게 활용하도록 설계되었습니다.
+        ## 🚀 작업 정보 등록
+        > 아래 표(Table) 양식의 빈칸을 채워 메타데이터와 일정을 한눈에 보이도록 작성해 주세요.
         ---
 
   # ==========================================
-  # [구획 1] 메타 정보 가로 집약 배치 (유형, 상태, 스토리포인트)
+  # [구획 2] 메타데이터 입력 폼
   # ==========================================
   - type: dropdown
     id: type
-    render:
-      # 대시보드 화면에서 가로 공간을 쪼개어 배치하도록 지시합니다.
-      columns: 4
     attributes:
       label: "📌 작업 유형 (Type)"
       options:
@@ -34,8 +34,6 @@ body:
 
   - type: dropdown
     id: status
-    render:
-      columns: 4
     attributes:
       label: "⚙️ 진행 상태 (Status)"
       options:
@@ -50,8 +48,6 @@ body:
 
   - type: dropdown
     id: priority
-    render:
-      columns: 4
     attributes:
       label: "🔥 우선순위 (Priority)"
       options:
@@ -62,77 +58,53 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: story-point
-    render:
-      columns: 4
-    attributes:
-      label: "🔢 스토리 포인트"
-      placeholder: "예: 1, 2, 3, 5"
-
   # ==========================================
-  # [구획 2] 일정 관리 From - To 가로 배치
+  # [구획 3] 가로 공간을 활용한 종합 일정/규모 대시보드
   # ==========================================
-  - type: input
-    id: start-date
-    render:
-      columns: 6  # 화면의 딱 절반을 차지합니다.
-    attributes:
-      label: "📅 시작일 (Start Date)"
-      placeholder: "YYYY-MM-DD"
-
-  - type: input
-    id: target-date
-    render:
-      columns: 6  # 시작일 바로 옆에 나란히 배치됩니다.
-    attributes:
-      label: "🏁 목표 완료일 (Target Date)"
-      placeholder: "YYYY-MM-DD"
-
-  # ==========================================
-  # [구획 3] 연관 이슈 관계성 가로 배치
-  # ==========================================
-  - type: input
-    id: upper-issue
-    render:
-      columns: 6
-    attributes:
-      label: "🔼 상위 이슈 (Upper)"
-      placeholder: "#이슈번호 또는 URL"
-
   - type: textarea
-    id: sub-issue
-    render:
-      columns: 6
+    id: schedule-and-points
     attributes:
-      label: "🔽 하위 이슈 리스트 (Sub)"
-      rows: 2  # 입력 칸이 너무 세로로 길지 않게 압축합니다.
+      label: "📅 일정 및 규모 설정 (Schedule & Story Points)"
+      description: "From - To 관계와 작업량을 가로 표 안에 바로 적어주세요."
       value: |
-        - [ ] 세부 태스크 1
-        - [ ] 세부 태스크 2
 
-  - type: markdown
-    attributes:
-      value: "---"
+        | 시작일 (Start) | 목표 완료일 (Target) | 스토리 포인트 (SP) |
+        | :--- | :--- | :--- |
+        | YYYY-MM-DD | YYYY-MM-DD | 예: 3 |
 
   # ==========================================
-  # [구획 4] 대형 입력창 (가로축 100% 전체 활용)
+  # [구획 4] 이슈 간의 연관 관계 (상하위 태스크)
+  # ==========================================
+  - type: textarea
+    id: issue-relations
+    attributes:
+      label: "🔗 연관 이슈 및 하위 태스크 (Issue Relations)"
+      description: "상위 에픽 이슈와 세부 하위 작업들을 지정합니다."
+      value: |
+        ### 🔼 상위 이슈 (Upper Issue)
+        - 부모 이슈 번호 또는 URL: 
+
+        ### 🔽 하위 태스크 리스트 (Sub-Tasks)
+        - [ ] 세부 작업 1
+        - [ ] 세부 작업 2
+
+  # ==========================================
+  # [구획 5] 대형 작업 내용 상세 입력창 (가로축 100% 활용)
   # ==========================================
   - type: textarea
     id: description
-    render:
-      columns: 12  # 가로 전체 너비를 온전히 사용하여 답답함을 없앱니다.
     attributes:
-      label: "📝 9. 작업 내용 상세 (Description)"
-      description: "화면을 넓게 활용할 수 있도록 와이드 테이블(Wide Table) 형태로 출력됩니다."
-      rows: 12     # 기본 노출되는 세로 크기도 대폭 늘렸습니다.
+      label: "📝 작업 내용 상세 (Description)"
+      description: "작업 목적과 세부 내역을 와이드 테이블 구조에 맞춰 상세히 기술해 주세요."
       value: |
         ### 📋 기획 및 개발 요약
         
-        | 핵심 목표 | 대상 화면/기능 | 인프라 및 외부 의존성 |
+        | 핵심 목표 (Goal) | 대상 화면 및 기능 | 인프라 / 외부 의존성 |
         | :--- | :--- | :--- |
-        | 무엇을 구현하나요? | 구체적인 컴포넌트/API 정보 | 타 서비스 연동 필요 여부 등 |
+        | 무엇을 구현하기 위한 작업인가요? | 구체적인 컴포넌트나 API 정보 | 타 서비스 연동 필요 여부 등 |
 
         ### 🔗 참고 자료 및 링크
-        * 기획서/피그마: 
+        * 기획서 / 피그마 링크: 
         * 관련 API 명세서: 
+    validations:
+      required: true
