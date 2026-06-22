@@ -1,31 +1,29 @@
-name: "📋 통합 작업 관리 템플릿"
-description: "일정, 스토리 포인트, 우선순위 등을 포함한 상세 작업을 등록합니다."
+name: "📋 통합 작업 관리 시스템"
+description: "기본 정보, 일정, 상하위 관계를 체계적으로 구조화하여 등록합니다."
 title: "[작업] "
 labels: ["task"]
-# 담당자 자동 지정: 기본적으로 이슈를 생성하는 자기 자신(Author)이 담당자로 지정되도록 설정합니다.
-# (이슈 생성 후 오른쪽 사이드바에서 언제든 다른 사람으로 변경 가능합니다.)
 assignees:
   - "{{ author }}"
 
 body:
+  # ==========================================
+  # [그룹 1] 안내 문구
+  # ==========================================
   - type: markdown
     attributes:
       value: |
-        ### 🚀 새로운 작업을 등록합니다.
-        아래의 필드들을 빠짐없이 입력해 주세요. 본문에 작성된 내용은 추후 프로젝트 보드(Table View) 관리 시 활용됩니다.
+        ## 🚀 새로운 작업을 등록합니다
+        > 아래 필드들은 프로젝트 보드(Table View) 및 로드맵과 연동됩니다. 데이터 누락 없이 정확히 입력해 주세요.
+        ---
 
-  - type: textarea
-    id: description
-    attributes:
-      label: "9. 작업 내용 (Description)"
-      placeholder: "진행할 구체적인 작업 내용이나 요구사항을 상세히 적어주세요."
-    validations:
-      required: true
-
+  # ==========================================
+  # [그룹 2] 분류 및 메타 정보 (성격 정의)
+  # ==========================================
   - type: dropdown
     id: type
     attributes:
-      label: "7. 작업 유형 (Type)"
+      label: "📌 1. 작업 유형 (Type)"
+      description: "본 이슈의 성격을 정의해 주세요."
       options:
         - "task"
         - "bug"
@@ -35,35 +33,24 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: start-date
+  - type: dropdown
+    id: priority
     attributes:
-      label: "3. 시작일 (Start Date)"
-      placeholder: "YYYY-MM-DD (예: 2026-06-23)"
+      label: "🔥 2. 우선순위 (Priority)"
+      description: "작업의 시급성을 선택해 주세요."
+      options:
+        - "major"
+        - "minor"
+        - "trivial"
+        - "etc"
     validations:
-      required: false
-
-  - type: input
-    id: target-date
-    attributes:
-      label: "4. 목표 완료일 (Target Date)"
-      placeholder: "YYYY-MM-DD (예: 2026-06-30)"
-    validations:
-      required: false
-
-  - type: input
-    id: story-point
-    attributes:
-      label: "5. 스토리 포인트 (Story Point)"
-      description: "작업량을 숫자로 입력해주세요. 1md -> 하루 작업량"
-      placeholder: "예: 1, 2, 3, 5, 8"
-    validations:
-      required: false
+      required: true
 
   - type: dropdown
     id: status
     attributes:
-      label: "8. 진행 상태 (Status)"
+      label: "⚙️ 3. 현재 진행 상태 (Status)"
+      description: "초기 진입 상태를 지정합니다."
       options:
         - "작업대기"
         - "작업중"
@@ -74,34 +61,86 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: priority
+  - type: markdown
     attributes:
-      label: "10. 우선순위 (Priority)"
-      options:
-        - "major"
-        - "minor"
-        - "trivial"
-        - 'etc'
-    validations:
-      required: true
+      value: "---"
 
+  # ==========================================
+  # [그룹 3] 일정 및 규모 (Project 보드 연동용)
+  # ==========================================
+  - type: input
+    id: start-date
+    attributes:
+      label: "📅 4. 시작일 (Start Date)"
+      placeholder: "YYYY-MM-DD (예: 2026-06-23)"
+    validations:
+      required: false
+
+  - type: input
+    id: target-date
+    attributes:
+      label: "🏁 5. 목표 완료일 (Target Date)"
+      placeholder: "YYYY-MM-DD (예: 2026-06-30)"
+    validations:
+      required: false
+
+  - type: input
+    id: story-point
+    attributes:
+      label: "🔢 6. 스토리 포인트 (Story Point)"
+      description: "작업 규모를 난이도/시간 기준으로 환산한 숫자 (Fibonacci)"
+      placeholder: "예: 1, 2, 3, 5, 8"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "---"
+
+  # ==========================================
+  # [그룹 4] 이슈 간의 관계성 (상하위 태스크 구조화)
+  # ==========================================
   - type: input
     id: upper-issue
     attributes:
-      label: "12. 상위 이슈 (Upper Issue)"
-      description: "연관된 상위 작업이나 에픽(Epic) 이슈 번호 또는 URL이 있다면 적어주세요."
-      placeholder: "예: #123 또는 이슈 링크"
+      label: "🔼 7. 상위 이슈 (Upper Issue)"
+      description: "본 작업이 종속된 상위 에픽(Epic)이나 기능 정의 이슈 번호"
+      placeholder: "예: #123 또는 이슈 URL"
     validations:
       required: false
 
   - type: textarea
     id: sub-issue
     attributes:
-      label: "11. 하위 이슈 리스트 (Sub-Issue)"
-      description: "본 작업에 종속된 하위 태스크 목록을 체크리스트 형태로 작성해 보세요."
+      label: "🔽 8. 하위 이슈 리스트 (Sub-Issue)"
+      description: "본 작업을 완료하기 위해 쪼개진 세부 태스크 목록"
       value: |
-        - [ ] 하위 작업 1
-        - [ ] 하위 작업 2
+        - [ ] 세부 태스크 1
+        - [ ] 세부 태스크 2
     validations:
       required: false
+
+  - type: markdown
+    attributes:
+      value: "---"
+
+  # ==========================================
+  # [그룹 5] 작업 내용 상세 (표 형식 템플릿 포함)
+  # ==========================================
+  - type: textarea
+    id: description
+    attributes:
+      label: "📝 9. 작업 내용 상세 (Description)"
+      description: "제공된 표 양식에 맞추어 기획 요소를 요약해 주세요."
+      value: |
+        ### 📋 기획 및 개발 요약
+
+        | 항목 | 내용 |
+        | :--- | :--- |
+        | **핵심 목표** | 무엇을 구현하기 위한 작업인가요? |
+        | **대상 화면/기능** | 구체적인 컴포넌트나 API 정보를 적어주세요. |
+        | **인프라/의존성** | 타 서비스 연동이나 변경이 필요한 환경이 있나요? |
+
+        ### 🔗 참고 자료 및 링크
+        * 기획서/피그마: 
+        * 관련 API 명세서: 
