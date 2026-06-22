@@ -82,7 +82,7 @@ body:
         - "major"
         - "minor"
         - "trivial"
-        - "none"
+        - 'etc'
     validations:
       required: true
 
