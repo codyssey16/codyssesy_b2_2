@@ -1,110 +1,61 @@
-name: "📋 통합 작업 관리 시스템"
-description: "일정 및 메타 정보를 직관적인 테이블 구조로 입력합니다."
+name: "📋 데이터 검증형 작업 관리 시스템"
+description: "오입력을 방지하고 GitHub 기본 필드 및 Sub-issues 기능과 연동합니다."
 title: "[작업] "
+# 기존 내장 필드인 type(labels)과 priority, assignee(자기자신)를 시스템 필드로 일치시킵니다.
 labels: ["task"]
 assignees:
   - "{{ author }}"
 
 body:
-  # ==========================================
-  # [구획 1] 안내 및 대시보드 (From-To 일정 및 기본 정보)
-  # ==========================================
   - type: markdown
     attributes:
       value: |
-        ## 🚀 작업 정보 등록
-        > 아래 표(Table) 양식의 빈칸을 채워 메타데이터와 일정을 한눈에 보이도록 작성해 주세요.
+        ## 🚀 세부 작업 내용 기술
+        > 본문 작성을 완료한 후, 일정 및 상하위 이슈는 **GitHub 공식 기능(오른쪽 사이드바 및 하단 UI)**을 통해 등록해 주세요.
         ---
 
   # ==========================================
-  # [구획 2] 메타데이터 입력 폼
+  # [1] 숫자 전용 검증 필드 (스토리 포인트)
   # ==========================================
-  - type: dropdown
-    id: type
+  - type: input
+    id: story-point
     attributes:
-      label: "📌 작업 유형 (Type)"
-      options:
-        - "task"
-        - "bug"
-        - "documentation"
-        - "refactoring"
-        - "enhancement"
+      label: "🔢 스토리 포인트 (Story Point)"
+      description: "작업 규모를 숫자로만 입력해 주세요. (문자 입력 시 저장 불가)"
+      placeholder: "예: 1, 2, 3, 5, 8"
     validations:
-      required: true
-
-  - type: dropdown
-    id: status
-    attributes:
-      label: "⚙️ 진행 상태 (Status)"
-      options:
-        - "작업대기"
-        - "작업중"
-        - "완료"
-        - "검수"
-        - "종료"
-        - "이슈발생"
-    validations:
-      required: true
-
-  - type: dropdown
-    id: priority
-    attributes:
-      label: "🔥 우선순위 (Priority)"
-      options:
-        - "major"
-        - "minor"
-        - "trivial"
-        - "etc"
-    validations:
-      required: true
+      # 정규식을 이용해 오직 '숫자만' 입력할 수 있도록 강력하게 제한합니다.
+      # 문자나 날짜 형식을 적으면 에러를 뿜으며 이슈 생성이 막힙니다.
+      regex: "^[0-9]+$"
 
   # ==========================================
-  # [구획 3] 가로 공간을 활용한 종합 일정/규모 대시보드
-  # ==========================================
-  - type: textarea
-    id: schedule-and-points
-    attributes:
-      label: "📅 일정 및 규모 설정 (Schedule & Story Points)"
-      description: "From - To 관계와 작업량을 가로 표 안에 바로 적어주세요."
-      value: |
-
-        | 시작일 (Start) | 목표 완료일 (Target) | 스토리 포인트 (SP) |
-        | :--- | :--- | :--- |
-        | YYYY-MM-DD | YYYY-MM-DD | 예: 3 |
-
-  # ==========================================
-  # [구획 4] 이슈 간의 연관 관계 (상하위 태스크)
-  # ==========================================
-  - type: textarea
-    id: issue-relations
-    attributes:
-      label: "🔗 연관 이슈 및 하위 태스크 (Issue Relations)"
-      description: "상위 에픽 이슈와 세부 하위 작업들을 지정합니다."
-      value: |
-        ### 🔼 상위 이슈 (Upper Issue)
-        - 부모 이슈 번호 또는 URL: 
-
-        ### 🔽 하위 태스크 리스트 (Sub-Tasks)
-        - [ ] 세부 작업 1
-        - [ ] 세부 작업 2
-
-  # ==========================================
-  # [구획 5] 대형 작업 내용 상세 입력창 (가로축 100% 활용)
+  # [2] 가로 너비를 100% 활용하는 대형 입력창
   # ==========================================
   - type: textarea
     id: description
     attributes:
       label: "📝 작업 내용 상세 (Description)"
-      description: "작업 목적과 세부 내역을 와이드 테이블 구조에 맞춰 상세히 기술해 주세요."
-      value: |
-        ### 📋 기획 및 개발 요약
-        
-        | 핵심 목표 (Goal) | 대상 화면 및 기능 | 인프라 / 외부 의존성 |
-        | :--- | :--- | :--- |
-        | 무엇을 구현하기 위한 작업인가요? | 구체적인 컴포넌트나 API 정보 | 타 서비스 연동 필요 여부 등 |
-
-        ### 🔗 참고 자료 및 링크
-        * 기획서 / 피그마 링크: 
-        * 관련 API 명세서: 
+      placeholder: "진행할 구체적인 작업 내용이나 요구사항을 상세히 적어주세요."
     validations:
       required: true
+
+  # ==========================================
+  # [3] 일정 및 연관 이슈 등록 가이드 (오입력 차단용 가이드라인)
+  # ==========================================
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 💡 이슈 생성 후 필수 완료 체크리스트 (오입력 방지)
+        
+        이슈를 생성한 직후, 화면에서 다음 작업을 순서대로 완료해 주세요!
+        
+        1. **📅 일정 설정 (달력 팝업)**
+           - 오른쪽 사이드바의 `Start date`와 `Target date` 항목을 클릭하여 **달력 팝업에서 날짜를 선택**해 주세요.
+        2. **🔥 우선순위 지정 (Priority)**
+           - 오른쪽 사이드바의 `Priority` 항목에서 `major`, `minor`, `trivial`, `none` 중 하나를 선택해 주세요.
+        3. **🔼 상위 이슈 (Parent Issue) 연결**
+           - 오른쪽 사이드바의 `Parent issue` 항목을 눌러 이 작업의 부모가 되는 상위 이슈를 검색 후 선택해 주세요.
+        4. **🔽 하위 이슈 (Sub-issues) 생성 및 추가**
+           - 이슈 작성이 완료되면 본문 맨 아래에 **`Create sub-issue`** 버튼이 생깁니다.
+           - 그 버튼을 눌러 **즉석에서 새로운 하위 이슈를 생성**하거나, **기존 이슈를 검색해 하위 이슈로 병합**할 수 있습니다.
