@@ -5,7 +5,8 @@ title: "[작업] "
 labels: ["task"]
 assignees:
   - "{{ author }}"
-
+project:
+- "codyssey16/projects/7"
 body:
   - type: markdown
     attributes:
