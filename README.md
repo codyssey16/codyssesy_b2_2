@@ -10,6 +10,9 @@
   - [자동화 워크플로우](workflow_report.md)
   - [노션 데이터베이스 페이지]() <!-- 노션 링크넣기 -->
   - [기획서(본 문서)](README.md)
+  - [프로젝트 관리 페이지 - WBS](https://github.com/orgs/codyssey16/projects/7)
+
+
 
 ---
 
@@ -65,6 +68,7 @@
 
 * **선택한 주제**: `AI (인공지능)`
 * **키워드 및 태그 목록**: `AI` <!--(`Artificial Intelligence`, `ChatGPT`, `Claude`, `Gemini`, `AI Agent`, `Generative AI`, `Anthropic`, `Google AI`) -->
+* **Feed URL**: https://techcrunch.com/feed
 * **선택 이유**: 현재 기술 시장에서 가장 빠르게 변화하는 분야이며, AI Native 과정에 참여하고 있는 만큼 관련 토픽과 트렌드를 신속하게 습득하기 위해 해당 키워드를 최우선 필터링 기준으로 선정.
 
 ---
