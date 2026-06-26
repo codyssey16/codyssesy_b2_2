@@ -7,8 +7,8 @@
 * **프로젝트 기간**: 2026.06.22(월) ~ 2026.06.28(일) (40시간)
  
 * **최종 결과물**:
-  - [자동화 워크플로우](workflow_report.md)
-  - [노션 데이터베이스 페이지]() <!-- 노션 링크넣기 -->
+  - [자동화 워크플로우 설명](./document/result_workflow_N_description.md)
+  - [노션 데이터베이스 정보](./document/result_database.md) <!-- 노션 링크넣기 -->
   - [기획서(본 문서)](README.md)
   - [프로젝트 관리 페이지 - WBS](https://github.com/orgs/codyssey16/projects/7)
 
@@ -105,12 +105,3 @@
 │   ├── qa_*.md                     # QA 수행 결과 산출물 (문서)
 └── README.md                       # 본 문서
 ```
-
----
-* **실제 작업 후 링크**
-### 📸 워크플로우 실행 구조
-
-![워크플로우 설명](./document/result_workflow_N_description.md)
-
-### 📸 노션 데이터베이스 스키마 및 저장 결과
-![노션 DB 저장 결과](./document/result_database.md)
