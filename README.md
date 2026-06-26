@@ -18,9 +18,7 @@
 
 ## 🛠️ 2. 활용 도구 및 주요 기능  
 
-<font color="red">자동화 플랫폼 부분은 작업도구 변경으로 인해 일부 변경이 필요합니다. </font>
-
-* **자동화 플랫폼**: `Relay.app`
+* **자동화 플랫폼**: `Make`
 * **AI 모델**: `GPT 5.4 mini`(요약) / `GPT 5.4 nano`(감정 분석)
 * **데이터베이스**: `Notion`, `Google Sheet`
 * **RSS 주소**: [TechCrunch 기술 뉴스 RSS 피드](https://techcrunch.com/feed/)
@@ -85,10 +83,7 @@
 
 ---
 
-## ⚠️ 5. 에러 처리 정책 및 선택 이유 (이 부분은 지속적 확인 필요)
-
-<font color="red"> result_log.md 파일을 작성해주시면 수정하겠습니다. </font>
-
+## ⚠️ 5. 에러 처리 정책 및 선택 이유
 
 * **정책 설정**:
   1. **중복 저장 방지**: Rss 내 Guid tag 를 기준값으로 설정하여 데이터베이스 내 중복을 차단
@@ -114,7 +109,8 @@
 ---
 * **실제 작업 후 링크**
 ### 📸 워크플로우 실행 구조
-![Relay 워크플로우 전체 화면](./images/workflow.jpg)
 
-### 📸 노션 데이터베이스 저장 결과
-![노션 DB 저장 결과](./images/Notion_saving_result_1.jpg)
+![워크플로우 설명](./document/result_workflow_N_description.md)
+
+### 📸 노션 데이터베이스 스키마 및 저장 결과
+![노션 DB 저장 결과](./document/result_database.md)
