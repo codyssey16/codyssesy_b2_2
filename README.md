@@ -114,7 +114,7 @@
 ---
 * **실제 작업 후 링크**
 ### 📸 워크플로우 실행 구조
-![Relay 워크플로우 전체 화면](./images/workflow.png)
+![Relay 워크플로우 전체 화면](./images/workflow.jpg)
 
 ### 📸 노션 데이터베이스 저장 결과
-![노션 DB 저장 결과](./images/notion_result.png)
+![노션 DB 저장 결과](./images/success.jpg)
