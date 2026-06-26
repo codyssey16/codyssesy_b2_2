@@ -13,7 +13,7 @@
     | :-- | :--:  | --: |
     | Title  | text  | 기사 주제 |
     | Summary  | text  | 3줄 요약 |
-    | URL  | text  | URL 정보 
+    | URL  | URL  | URL 정보 
     | Date  | datetime  | 기사 등록시각 |  
     | Emotion  | text  | enum(긍정,부정)  |  
     | Guid  | text  | Guid 고유키값 |  
