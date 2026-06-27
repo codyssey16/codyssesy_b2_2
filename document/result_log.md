@@ -40,19 +40,21 @@
 
 실행 완료:
 
-<img src="../images/no_AI_news.jpg" width="500"/>
+<img src="../images/issue_no_AI_news.jpg" width="500"/>
 
 <br>
 
 구글 시트 기록:
 
-<img src="../images/no_AI_news_google_sheets.jpg" width="500"/>
+<img src="../images/issue_no_AI_news_sheets.jpg" width="500"/>
 
 ---
 
 ## 4. Notion 에러 이메일 알림 후 재시도
 
-노션 에러 상황 테스트: Data Source ID를 없는 ID로 넣고 실행.
+노션에 에러가 났을 때 error handler에서 Router를 넣어서 Path A를 치명적인 에러에 이메일을 보내고 재시도, 그리고 Path B를 일반적인 에러에 구글 시트의 issue_log에 넣고 재시도를 하게 해도 되지만 현 과제를 위해서 간단하게 모든 에러에 이메일을 보내고 재시도를 하게 함.
+
+테션 에러 상황 테스트: Data Source ID를 없는 ID로 넣고 실행.
 
 ### <첫 번째 Notion>
 
@@ -82,6 +84,8 @@
 
 ## 5. OpenAI 에러 이메일 알림 후 재시도
 
+오픈AI에 에러가 났을 때 error handler에서 Router를 넣어서 Path A를 치명적인 에러에 이메일을 보내고 재시도, 그리고 Path B를 일반적인 에러에 구글 시트의 issue_log에 넣고 재시도를 하게 해도 되지만 현 과제를 위해서 간단하게 모든 에러에 이메일을 보내고 재시도를 하게 함.
+
 오픈AI 에러 상황 테스트: `Model`필드에서 `Map`을 선택하고 없는 GPT모델을 넣음. 예) `gpt-fake-model-12345` 
 
 ### <첫 번째 OpenAI>
@@ -110,11 +114,64 @@
 
 ---
 
-## 6. HTTP 에러는 filter 사용
+## 6. HTTP 에러 구글 시트에 이슈 기록
 
-HTTP 에서 에러가 났을 때 알림을 보내지 않고 간단하게 필터를 사용하여 `Status Code` 가 200~299일 때만 다음 모듈(Text Parser)로 가게 함.
+`HTTP` 에서 에러가 났을 때는 즉각적인 조치가 필요하지 않기 때문에 알림을 보내지 않고 추적 및 감사를 하기 위해 구글 시트에 이슈에 대한 행 삽입. 그리고 `HTTP` -> `Text Parser` 중간에 필터를 사용하여 아래 이미지와 같이 `Status Code` 가 200~299일 때만 다음 모듈(`Text Parser`)로 가게 함.
 
-<img src="../images/filter_HTTP.jpg" width="500"/>
+<p align="center">
+  <img src="../images/filter_http_input.jpg" width="300"/>
+</p>
+
+HTTP 에러 상황 테스트: URL을 첫 번째 OpenAI에서 나온 출력이 아닌 `https://doesntexist.com`으로 넣고 실행.
+
+실행 완료:
+
+<img src="../images/error_http.jpg" width="500"/>
+
+<br>
+
+구글 시트 기록:
+
+<img src="../images/error_http_sheets.jpg" width="500"/>
+
+---
+
+## 7. Parse JSON가 JSON형식의 string을 받지 않은 경우 구글 시트에 이슈 기록
+
+`Parse JSON` 에서 에러가 났을 때도 즉각적인 조치가 필요하지 않기 때문에 알림을 보내지 않고 추적 및 감사를 하기 위해 구글 시트에 이슈에 대한 행 삽입.
+
+Parse JSON 에러 상황 테스트: `JSON string`필드에 OpenAI가 출력한 JSON 형식의 답이 아닌 `not-json-you-want`을 넣고 실행.
+
+실행 완료:
+
+<img src="../images/error_parseJSON.jpg" width="500"/>
+
+<br>
+
+구글 시트 기록:
+
+<img src="../images/error_parseJSON_sheets.jpg" width="500"/>
+
+---
+
+## 8. Parse JSON에서 모든 데이터를 받지 않았을 때 구글 시트에 이슈 기록
+
+Parse JSON 상황 테스트: `JSON string`필드에 OpenAI가 출력한 JSON 형식의 답에서 `Summary`를 빼고 실행.
+
+`JSON string` 필드 입력 예:
+```
+{"result": {"Title": "Patronus AI, AI 에이전트 스트레스 테스트용 ‘디지털 월드’ 구축 위해 5,000만 달러 투자 유치","URL": "https://techcrunch.com/2026/06/25/patronus-ai-lands-50m-to-build-digital-worlds-that-stress-test-ai-agents/","Date": "2026-06-25 20:19:25","Emotion": "긍정","Guid": "https://techcrunch.com/?p=3136499"}}
+```
+
+실행 완료:
+
+<img src="../images/issue_parsejson.jpg" width="500"/>
+
+<br>
+
+구글 시트 기록:
+
+<img src="../images/issue_parsejson_sheets.jpg" width="500"/>
 
 ---
 
