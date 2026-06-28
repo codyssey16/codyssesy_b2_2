@@ -20,6 +20,8 @@
 
 <img src="../images/success_9am_notion_page.jpg" width="500"/>
 
+(시간: UDT time)
+
 ---
 
 ## 2. RSS 에러 알림

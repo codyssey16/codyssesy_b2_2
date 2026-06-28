@@ -32,6 +32,12 @@
 | **데이터 이슈** | **[Parse JSON 누락]** | JSON 문법은 올바르나 필수 데이터(예: `Summary`)가 누락된 경우 | Router의 **Fallback 경로**를 통해 **Google Sheets에 기록** | 구조는 정상이나 불완전한 데이터가 노션 DB에 저장되는 것을 방지(데이터 정제)하고, 누락 이력을 추적하여 AI 프롬프트를 보완하기 위함. |
 | **비용 및 효율 최적화** | **[OpenAI (1차 ➡️ 2차)]** | 모든 기사를 요약하지 않고, 1차 LLM이 선별한 중요 기사 1건의 URL 본문만 2차 LLM이 요약하도록 파이프라인 구성 | **2단계 구조(Two-step Verification)를 통한 API 호출 제한** | 모든 피드 AI 기사에 무조건 요약 API를 호출하면 불필요한 토큰 비용이 발생함. 따라서 1차 검증(Title/Desc 기반 선별) 후 확정된 기사 1건당 최대 1회만 요약 프로세스를 실행하여 불필요한 비용 발생을 방지(Cost Optimization). |
 
+<br>
+
+❗참고: RSS 피드([techcrunch.com/feed](https://techcrunch.com/feed/))에서 가져온 `Guid`는 128비트 크기의 데이터 형식 및 32개의 16진수 문자(0-9, a-f)의 구성을 따르지 **않았음**. (아래 예시 이미지 참고)
+
+<img src="../images/techcrunch-feed.jpg" />
+
 ---
 
 ## ♾️ 에러 핸들링 구조 및 한계점 설정
