@@ -2,21 +2,23 @@
 
 ## 1. 노션 DB에 뉴스 저장 성공
 
-실행 완료:
+실행 완료: (매일 9시 자동 실행)
 
-<img src="../images/success.jpg" width="800"/>
+<img src="../images/success_9am.jpg" width="800"/>
 
 <br>
 
 노션 DB 저장 테이블:
 
-<img src="../images/success_notion_table.jpg" width="800"/>
+<img src="../images/success_9am_notion_table.jpg" width="800"/>
+
+(시간: UDT time)
 
 <br>
 
 노션 DB 저장 결과:
 
-<img src="../images/success_notion_page.jpg" width="500"/>
+<img src="../images/success_9am_notion_page.jpg" width="500"/>
 
 ---
 
