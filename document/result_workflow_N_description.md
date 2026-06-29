@@ -141,3 +141,11 @@
   * JSON 파싱 에러 시: OpenAI의 출력 규격 리턴 오류로 파싱 실패 시, **[Google Sheets - Add a Row]** 에러 핸들러를 통해 로그를 남기고 Skip.
 
 * **⛔ 2차 에러 처리:** 에러 핸들러 라인 내부의 Email과 Google sheets 모듈 자체에서 나는 에러는 시스템의 복잡도 감소를 위해 의도적으로 무시(Ignore)하도록 설계되었고 Make의 시나리오 설정(Scenario settings)에서 **Store incomplete executions = Yes**로 지정하여 '미완료 실행(Incomplete Execution)' 보관함에 저장되어 이메일 알림을 받고 추후 수동 복구가 가능하도록 2중 안전장치를 마련.
+
+---
+
+# 워크플로우 히스토리
+
+(매일 아침 9시 자동 실행된 워크플로우 기록)
+
+<img src="../images/history_scheduled_success.jpg" />
